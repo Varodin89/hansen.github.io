@@ -1,3 +1,29 @@
+// Hansen Bar Telegram Bot Integration
+// This bot will handle the mini app integration for Hansen Bar
+
+const { Telegraf } = require('telegraf');
+const { MenuButton } = require('telegraf/typings/markup');
+
+// Replace with your bot token from BotFather
+const bot = new Telegraf('8174003384:AAFTEu1sz9xVCpgee9B6pe5Xn8QL_7Rd5s0
+');
+
+// Configure the bot
+bot.start(async (ctx) => {
+  try {
+    await ctx.reply('Добро пожаловать в Hansen Bar! 🍔🍺', {
+      reply_markup: {
+        keyboard: [
+          [{ text: 'Меню', web_app: { url: 'YOUR_WEBAPP_URL' } }]
+        ],
+        resize_keyboard: true
+      }
+    });
+  } catch (error) {
+    console.error('Error in start command:', error);
+  }
+});
+
 // Handle web app data
 bot.on('web_app_data', async (ctx) => {
   try {
@@ -8,7 +34,7 @@ bot.on('web_app_data', async (ctx) => {
     
     // Forward order to admin chat or channel
     // Replace ADMIN_CHAT_ID with your actual admin chat ID
-    await bot.telegram.sendMessage('ADMIN_CHAT_ID', 
+    await bot.telegram.sendMessage('-4647748952', 
       `Новый заказ на вынос!\n\n${data}`, 
       { parse_mode: 'HTML' }
     );
@@ -52,7 +78,7 @@ bot.command('menu', (ctx) => {
   ctx.reply('Нажмите на кнопку, чтобы открыть меню:', {
     reply_markup: {
       inline_keyboard: [
-        [{ text: 'Открыть меню', web_app: { url: 'YOUR_WEBAPP_URL' } }]
+        [{ text: 'Открыть меню', web_app: { url: 'https://github.com/Varodin89/hansen.github.io' } }]
       ]
     }
   });
